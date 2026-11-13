@@ -1,0 +1,10 @@
+; SPDX-License-Identifier: Apache-2.0
+(typeattribute mdm_finish_dump_exec_32_0)
+(typeattributeset mdm_finish_dump_exec_32_0 (mdm_finish_dump_exec))
+(expandtypeattribute (mdm_finish_dump_exec_32_0) true)
+(typeattribute mdm_report_exec_32_0)
+(typeattributeset mdm_report_exec_32_0 (mdm_report_exec))
+(expandtypeattribute (mdm_report_exec_32_0) true)
+(typeattribute mdm_restart_exec_32_0)
+(typeattributeset mdm_restart_exec_32_0 (mdm_restart_exec))
+(expandtypeattribute (mdm_restart_exec_32_0) true)

@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+recovery_only(`
+    type lp3_recovery_usb_mode, fs_type, sysfs_type;
+    allow init lp3_recovery_usb_mode:file rw_file_perms;
+')

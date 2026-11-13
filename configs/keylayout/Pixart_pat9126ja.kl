@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
+# The stock encoder emits key pulses rather than relative-axis events.
+key 19 F13
+key 20 F14

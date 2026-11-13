@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0
+/system/bin/mdm_finish_dump    u:object_r:mdm_finish_dump_exec:s0
+/system/bin/mdm_report         u:object_r:mdm_report_exec:s0
+/system/bin/mdm_restart        u:object_r:mdm_restart_exec:s0
+
+/system_ext/bin/lp3-boot-log    u:object_r:lp3_bootlog_exec:s0
+/metadata/lp3-boot-logs(/.*)?  u:object_r:lp3_bootlog_file:s0

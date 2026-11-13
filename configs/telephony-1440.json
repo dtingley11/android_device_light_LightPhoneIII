@@ -1,0 +1,220 @@
+{
+  "firmware": "00WW_1_440000",
+  "files": {
+    "product/etc/permissions/ims_ext_common.xml": "2d0231984a8b68c24f312f5b3ee227354e5cc706371476eff5cf67d892e8c3c0",
+    "product/framework/ims-ext-common.jar": "62132b287ba968b2e6c37f5e9d7ef0c2865c56a876ca60da58117b2625f27220",
+    "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk": "4535ebdf59f53e36855b90813379fc8a7e7917321078989081f7d8e4b7e8f51e",
+    "system_ext/etc/permissions/qti_libpermissions.xml": "78b94d836339b46d88b6aec68f49fa009dc4be3b9836d82b1417c1437e7169a0",
+    "system_ext/etc/permissions/qti_permissions.xml": "888a73574ad91867ad2b0f6b48fddf0a98d2b9aebaa3fa6f0760c1d3970836c8",
+    "system_ext/etc/permissions/qti_telephony_hidl_wrapper.xml": "9c77a1f474bec0104854e92fcbeef3b03640cb2491bd5bb3355c937a41e0c0ce",
+    "system_ext/etc/permissions/qti_telephony_utils.xml": "e7d6f08e08a293c14c5f810ae3cd3c36ab1ef798605de663617476bb90b424ac",
+    "system_ext/framework/qti-telephony-hidl-wrapper.jar": "ff09b0ac2f4ba1706cf8719116058051fcb2bfd5b5c06c7bfa59f63e0ca9e5f9",
+    "system_ext/framework/qti-telephony-utils.jar": "c7a0d166654beb1e0168c67e95988d7a799ec952076cca6ce9be4a4cbb446a2a",
+    "system_ext/lib64/lib-imsvideocodec.so": "26ef0fba25857f9d145989239864b0f53d3b097637858b43279a02f57c7e7126",
+    "system_ext/lib64/lib-imsvt.so": "5cb6b38cf80812ccea6b805c79a12f4f189f9fafa7f1be15c4ea48099bf46206",
+    "system_ext/lib64/lib-imsvtextutils.so": "b422e665dc965f96980e36d3ada50504ddfe621e4cb4cf6d6da8dfa5f68d5ffd",
+    "system_ext/lib64/lib-imsvtutils.so": "80e7f643690ece1b65d79de53081cd89a7e43f22badebba26db888584747facc",
+    "system_ext/lib64/libdiag_system.so": "e3ba1befe9be3b58f82818ee9a1c62b9a1679d423ea719a60b903e06523c1c81",
+    "system_ext/lib64/libimscamera_jni.so": "0b9d56bba9d77e868e5d19fd3989b4f9d759065192a1cbdf9dcd5abfad31be18",
+    "system_ext/lib64/libimsmedia_jni.so": "073b39a8b9fc5ff15aa347eb9465a8e81f56fc3c96397dd921ddace81af13972",
+    "system_ext/lib64/vendor.qti.ImsRtpService-V1-ndk.so": "853a9e5b7e9030c68dfddd9db9c68caf3fd799071aa413480d2e07bae752c0ec",
+    "system_ext/lib64/vendor.qti.diaghal@1.0.so": "08885486b437c2fffe0fe6049477d4b73773371acba9cfe14de2d9ee3de15229",
+    "system_ext/lib64/vendor.qti.imsrtpservice@3.0.so": "2aae710bc528455ac8f9c452606b3a16dc8ef220dd4d48d07dc7780cb9379891",
+    "system_ext/lib64/vendor.qti.imsrtpservice@3.1.so": "14f0955ef86915bf0043bf4594c13def3676da423adb5597c73c07a40a1707c4",
+    "system_ext/priv-app/ims/ims.apk": "b8cc874b2b8e39f0ee9e1a1e79c65c43f969b8e5d40b3836d7db6beb721a729f",
+    "system_ext/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk": "4eb2cff3eaba1da333ba9c371810396e8550f9eb484e159c0b53d0e1a237e343"
+  },
+  "native_needed": {
+    "lib-imsvt.so": {
+      "needed": [
+        "lib-imsvideocodec.so",
+        "libmediandk.so",
+        "libnativewindow.so",
+        "libion.so",
+        "libdmabufheap.so",
+        "lib-imsvtutils.so",
+        "libandroid.so",
+        "libhidlbase.so",
+        "vendor.qti.imsrtpservice@3.0.so",
+        "vendor.qti.imsrtpservice@3.1.so",
+        "libbinder.so",
+        "libbinder_ndk.so",
+        "vendor.qti.ImsRtpService-V1-ndk.so",
+        "libdiag_system.so",
+        "libcutils.so",
+        "libutils.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "libimscamera_jni.so": {
+      "needed": [
+        "libnativehelper.so",
+        "libcutils.so",
+        "libutils.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "libimsmedia_jni.so": {
+      "needed": [
+        "libnativehelper.so",
+        "libcutils.so",
+        "libutils.so",
+        "libgui.so",
+        "libbinder.so",
+        "liblog.so",
+        "libandroid.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "lib-imsvideocodec.so": {
+      "needed": [
+        "lib-imsvtutils.so",
+        "lib-imsvtextutils.so",
+        "libcutils.so",
+        "libutils.so",
+        "liblog.so",
+        "libdiag_system.so",
+        "libgui.so",
+        "libandroid.so",
+        "libnativewindow.so",
+        "libmediandk.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "lib-imsvtutils.so": {
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "liblog.so",
+        "libdiag_system.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "libdiag_system.so": {
+      "needed": [
+        "vendor.qti.diaghal@1.0.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "android.hidl.allocator@1.0.so",
+        "android.hidl.memory@1.0.so",
+        "libhidlmemory.so",
+        "libc.so",
+        "libcutils.so",
+        "libc++.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "vendor.qti.ImsRtpService-V1-ndk.so": {
+      "needed": [
+        "libbinder_ndk.so",
+        "android.hardware.common-V2-ndk.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "vendor.qti.imsrtpservice@3.0.so": {
+      "needed": [
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "vendor.qti.imsrtpservice@3.1.so": {
+      "needed": [
+        "vendor.qti.imsrtpservice@3.0.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "lib-imsvtextutils.so": {
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "liblog.so",
+        "libdiag_system.so",
+        "lib-imsvtutils.so",
+        "libGLESv2.so",
+        "libEGL.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "vendor.qti.diaghal@1.0.so": {
+      "needed": [
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    }
+  },
+  "apps": {
+    "LP3Ims": {
+      "path": "system_ext/priv-app/ims/ims.apk",
+      "privileged": true,
+      "uses_libs": [
+        "qti-telephony-hidl-wrapper",
+        "qti-telephony-utils",
+        "ims-ext-common"
+      ]
+    },
+    "LP3QcrilMsgTunnel": {
+      "path": "system_ext/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk",
+      "privileged": true,
+      "uses_libs": [
+        "qti-telephony-hidl-wrapper",
+        "qti-telephony-utils"
+      ]
+    },
+    "LP3QtiTelephonyService": {
+      "path": "system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+      "privileged": false,
+      "uses_libs": [
+        "qti-telephony-hidl-wrapper"
+      ]
+    }
+  },
+  "java_libraries": {
+    "qti-telephony-hidl-wrapper": "system_ext/framework/qti-telephony-hidl-wrapper.jar",
+    "qti-telephony-utils": "system_ext/framework/qti-telephony-utils.jar",
+    "ims-ext-common": "product/framework/ims-ext-common.jar"
+  }
+}

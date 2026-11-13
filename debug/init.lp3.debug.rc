@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: Apache-2.0
+on init && property:ro.debuggable=1
+    setprop service.adb.root 1
+    setprop sys.usb.controller ${ro.boot.usbcontroller:-a600000.dwc3}
+    write /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode peripheral
+
+# Vendor USB setup runs during post-fs; ADB's APEX is already bootstrapped.
+on post-fs && property:ro.debuggable=1
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller ${ro.boot.usbcontroller:-a600000.dwc3}
+    setprop sys.usb.config adb
+    start adbd
+    write /proc/sys/kernel/printk "7 6 1 7"
+    mkdir /metadata/lp3-boot-logs 0700 root root
+    restorecon_recursive /metadata/lp3-boot-logs
+    # Init already has access to pstore; the streaming logger does not need it.
+    copy /sys/fs/pstore/dmesg-ramoops-0 /metadata/lp3-boot-logs/dmesg-ramoops-0
+    copy /sys/fs/pstore/dmesg-ramoops-1 /metadata/lp3-boot-logs/dmesg-ramoops-1
+    copy /sys/fs/pstore/console-ramoops /metadata/lp3-boot-logs/console-ramoops
+    copy /sys/fs/pstore/console-ramoops-0 /metadata/lp3-boot-logs/console-ramoops-0
+    copy /sys/fs/pstore/pmsg-ramoops-0 /metadata/lp3-boot-logs/pmsg-ramoops-0
+    start lp3-boot-log
+
+# Retain ADB when vendor boot actions apply their saved USB composition.
+on boot && property:ro.debuggable=1
+    setprop sys.usb.config adb
+    # Classpaths and the default APEX namespace are ready at this stage.
+    restart adbd
+
+service lp3-boot-log /system_ext/bin/lp3-boot-log
+    class core
+    user root
+    group root log readproc
+    capabilities SYSLOG
+    disabled
+    restart_period 30

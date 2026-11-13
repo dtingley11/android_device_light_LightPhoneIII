@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
+recovery_only(`
+    genfscon sysfs /devices/platform/soc/a600000.ssusb/mode u:object_r:lp3_recovery_usb_mode:s0
+')

@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: Apache-2.0
+type lp3_bootlog, domain, coredomain;
+type lp3_bootlog_exec, exec_type, file_type, system_file_type;
+type lp3_bootlog_file, file_type, data_file_type, core_data_file_type;
+
+userdebug_or_eng(`
+    init_daemon_domain(lp3_bootlog)
+    allow lp3_bootlog { shell_exec toolbox_exec logcat_exec }:file { rx_file_perms execute_no_trans };
+    allow lp3_bootlog metadata_file:dir search;
+    allow lp3_bootlog lp3_bootlog_file:dir create_dir_perms;
+    allow lp3_bootlog lp3_bootlog_file:file create_file_perms;
+    allow lp3_bootlog { proc_cmdline proc_bootconfig }:file r_file_perms;
+    allow lp3_bootlog self:global_capability2_class_set syslog;
+    allow lp3_bootlog kernel:system syslog_read;
+    read_logd(lp3_bootlog)
+    get_prop(lp3_bootlog, logd_prop)
+    allow init lp3_bootlog_file:dir { create_dir_perms relabelto };
+    allow init lp3_bootlog_file:file { create_file_perms relabelto };
+')

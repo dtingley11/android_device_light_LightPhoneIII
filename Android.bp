@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: Apache-2.0
+soong_namespace {}
+
+sh_binary {
+    name: "lp3-boot-log",
+    src: "debug/lp3-boot-log.sh",
+    system_ext_specific: true,
+    init_rc: ["debug/init.lp3.debug.rc"],
+}
+
+prebuilt_root {
+    name: "lp3-recovery-adb-keys",
+    src: "debug/adb_keys",
+    filename: "lp3_adb_keys",
+    install_in_root: true,
+    recovery: true,
+}

@@ -1,0 +1,3 @@
+; Private userdebug bring-up: match the OEM debug logging permissions.
+(allow vendor_qmipriod vendor_qmipriod_data_file (dir (search open read getattr write add_name remove_name)))
+(allow vendor_qmipriod vendor_qmipriod_data_file (file (create open read write append getattr setattr unlink)))

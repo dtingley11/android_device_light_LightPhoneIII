@@ -1,0 +1,6 @@
+; SPDX-License-Identifier: Apache-2.0
+; LP3 exports provided for the retained policy API 32.0.
+(type new_objects)
+(typeattribute new_objects)
+(typeattributeset new_objects
+    (new_objects mdm_finish_dump_exec mdm_report_exec mdm_restart_exec))

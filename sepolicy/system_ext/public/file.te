@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Legacy platform labels referenced by LP3 vendor policy 32.0.
+type mdm_finish_dump_exec, exec_type, file_type, system_file_type;
+type mdm_report_exec, exec_type, file_type, system_file_type;
+type mdm_restart_exec, exec_type, file_type, system_file_type;

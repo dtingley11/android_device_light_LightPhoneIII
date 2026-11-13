@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/display_title">
+        <ListPreference android:key="peak_refresh_rate"
+            android:title="@string/refresh_rate_title" android:persistent="false" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/wheel_title">
+        <ListPreference android:key="lp3_wheel_click_action"
+            android:title="@string/wheel_click_title" android:persistent="false"
+            android:entries="@array/action_entries" android:entryValues="@array/action_values" />
+        <ListPreference android:key="lp3_wheel_hold_action"
+            android:title="@string/wheel_hold_title" android:persistent="false"
+            android:entries="@array/action_entries" android:entryValues="@array/action_values" />
+        <SwitchPreference android:key="lp3_wheel_reverse_scroll"
+            android:title="@string/reverse_scroll_title" android:persistent="false"
+            android:summary="@string/reverse_scroll_summary" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/middle_title">
+        <Preference android:title="@string/middle_behavior_title"
+            android:summary="@string/middle_behavior_summary" android:selectable="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <string name="controls_title">Light Phone controls</string>
+    <string name="controls_summary">Display, wheel and side-button settings</string>
+    <string name="display_title">Display</string>
+    <string name="refresh_rate_title">Maximum refresh rate</string>
+    <string name="refresh_rate_hz">%1$s Hz</string>
+    <string name="refresh_rate_only_mode">%1$s · only supported mode</string>
+    <string name="refresh_rate_unavailable">Display modes unavailable</string>
+    <string name="refresh_rate_no_limit">No limit set</string>
+    <string name="refresh_rate_error">Couldn’t save refresh rate. Try again.</string>
+    <string name="wheel_title">Scroll wheel</string>
+    <string name="wheel_click_title">Click action</string>
+    <string name="wheel_hold_title">Hold action</string>
+    <string name="reverse_scroll_title">Reverse scrolling</string>
+    <string name="reverse_scroll_summary">Reverse the wheel’s scroll direction.</string>
+    <string name="middle_title">Middle button</string>
+    <string name="middle_behavior_title">Home and Recents</string>
+    <string name="middle_behavior_summary">Press to go Home. Double-press to open Recents.</string>
+    <string-array name="action_entries">
+        <item>Back</item><item>Home</item><item>Recents</item>
+        <item>Flashlight</item><item>Play/pause</item><item>No action</item>
+    </string-array>
+    <string-array name="action_values" translatable="false">
+        <item>back</item><item>home</item><item>recents</item>
+        <item>flashlight</item><item>play_pause</item><item>none</item>
+    </string-array>
+</resources>

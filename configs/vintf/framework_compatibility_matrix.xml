@@ -1,0 +1,27 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<compatibility-matrix version="1.0" type="framework">
+    <hal format="aidl" optional="true">
+        <name>com.fingerprints.fpc.extension</name>
+        <version>1</version>
+        <interface>
+            <name>IFpcExtension</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.fih.hardware.dSar</name>
+        <version>1.0</version>
+        <interface>
+            <name>IdSar</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.fih.hardware.stabilityDebugCtl</name>
+        <version>1.0</version>
+        <interface>
+            <name>IstabilityDebugCtl</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</compatibility-matrix>

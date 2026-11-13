@@ -1,0 +1,115 @@
+{
+  "firmware": "00WW_1_440000",
+  "device": "LightPhoneIII",
+  "model": "TLP301",
+  "platform": "parrot",
+  "sku": "ravelin",
+  "soc_id": 568,
+  "system_sdk": 34,
+  "vendor_sdk": 32,
+  "vndk": 32,
+  "product_shipping_api": 33,
+  "board_shipping_api": 31,
+  "vendor_security_patch": "2025-03-01",
+  "sepolicy_version": "32.0",
+  "partitions": {
+    "boot": {
+      "bytes": 100663296,
+      "sha256": "ae2f5a99048d8ed2c9847b14a4d09d385c8dbfc8c849d57d9abb9d544c974868"
+    },
+    "dtbo": {
+      "bytes": 24117248,
+      "sha256": "df9a6bf6e1d6b92167d0c8de8f9e51d8a6e27075e1f07cb284e9c475b22e8dfc"
+    },
+    "odm": {
+      "bytes": 1347584,
+      "sha256": "243dca47795e5ce3082d3bfa09ef2e15d2211a2006db3810610d920ea9681620"
+    },
+    "product": {
+      "bytes": 325910528,
+      "sha256": "e3559c11a2bf9f9f0fdf04516a4811f24c709dcddeb2227f5227fa5361837435"
+    },
+    "recovery": {
+      "bytes": 104857600,
+      "sha256": "312394e9a7f8338f043a2c9e09b813bdd0a86f37aaf40661f11dda6c0e759691"
+    },
+    "system": {
+      "bytes": 1521192960,
+      "sha256": "d77a67343e42634c8cd4ea39258840d6a6adb7f218ed311febe0c9e7ebabb8c8"
+    },
+    "system_ext": {
+      "bytes": 854032384,
+      "sha256": "be1850f786b70bf88a2b3e0407759f1d0fb4925e4bd1ed5946f89f0dbd856878"
+    },
+    "vendor": {
+      "bytes": 863399936,
+      "sha256": "37e7c79274606dac4dbbed8ce43433cb0f61b32c2c80c469e98e3d094d34d471"
+    },
+    "vendor_boot": {
+      "bytes": 100663296,
+      "sha256": "1931b2b0e1a9fba0898cb674adea55105a54c67cb8596a8a97a90f85f9f337a9"
+    },
+    "vendor_dlkm": {
+      "bytes": 121454592,
+      "sha256": "0cedce1429f9200682f054378ee1bda32ce289074099734eb5d45e38c32302e3"
+    }
+  },
+  "physical_sizes": {
+    "boot": 100663296,
+    "vendor_boot": 100663296,
+    "recovery": 104857600,
+    "dtbo": 25165824,
+    "super": 6442450944
+  },
+  "dynamic_group_maximum_size": 6438256640,
+  "fstab_sha256": "613a547f7555fc0d65147b325ddb65df4d5503eef680d324b11e190a845531fb",
+  "kernel_release": "5.10.198-gki-g05fa10b68b11",
+  "evidence": {
+    "partition_hashes": "OEM-signed LP3-FOTA-1440-1400-user-fota.zip payload manifest; matches verified local backup partitions",
+    "platform_and_api": "vendor/build.prop in the signed vendor image",
+    "kernel_release": "vermagic in matching vendor_boot UFS module",
+    "fstab": "first_stage_ramdisk/fstab.default in signed vendor_boot",
+    "sepolicy_version": "vendor/etc/selinux/plat_sepolicy_vers.txt in verified firmware 1440"
+  },
+  "vintf_fragments": {
+    "android.hardware.atrace@1.0-service.xml": "49e4a804e77b653064e7cb8fc5dc6c6b4aeea2ae4a2a62dab0ff52e0c463ee01",
+    "android.hardware.biometrics.fingerprint-v1-service.xml": "e691a73eeab04c02e4ee52f2bf1e195f47df6ab268b427c378d506bf08e58e78",
+    "android.hardware.boot@1.2.xml": "0c4d9c601e8ec42d712d3b55dc5e4806e915d7659325dcb1ea6f700c8d9c4d24",
+    "android.hardware.cas@1.2-service.xml": "9357fb5a7b17fe81638ec82f79d06007bb35c19016e676104fa55449b5f0f0d2",
+    "android.hardware.gnss-aidl-service-qti.xml": "9f1446741ec21c96292d0446148f95c8a8b610009e04e77d7370ad3ad5d63d55",
+    "android.hardware.gnss@2.1-service-qti.xml": "b12c00daff67f15983eaf9952d0ded199b2868ad1b9fb512fcab5f6bf813773d",
+    "android.hardware.graphics.mapper-impl-qti-display.xml": "d136319b57589cf93e848219bb0ed677fe5b9efc5e706c6879fb13c9b7019fb8",
+    "android.hardware.health@2.1.xml": "d79a8058bf0dd9d4cf7bf65f6ef2f47c3fd9452e641ebc746465d619aabb509c",
+    "android.hardware.security.keymint-service-qti.xml": "d71ec30051dffe6e260f2787d87f22fa12c5ed4afe3e57c022dc9722efbab605",
+    "android.hardware.sensors@2.1-multihal.xml": "eef321f4878b942bad58b714e5ccaf9c2f82b6986afc60828b07a9e8800457b6",
+    "android.hardware.thermal@2.0-service.qti.xml": "963119de0310765a376a61ec01854f70c6daa91bff75f0d6eaedc6e4b7f2a8b3",
+    "android.hardware.usb@1.2-service.xml": "7f0bd8f15ad0f216869ae1de9c86893c67cd2ebbb6f8392bf0619afd755c5755",
+    "android.hardware.wifi.hostapd.xml": "186b494f85edf7f63d5d73292579cab7422226fb6fcc6132569958661d568623",
+    "android.hardware.wifi.supplicant.xml": "757d0e5674284d49558da14f1c6832cc4f9959ab9cdb0bdd4980dc621ca6b3de",
+    "android.hardware.wifi@1.0-service.xml": "35681b40ec1804b9ec4c30e46f5e775abf7c241710c4d350345f28065f2ada5e",
+    "c2_manifest_vendor.xml": "f91b889f1dee3d7740862fae4632df0e9e553fea8ba11b23d6ae86f97e088f29",
+    "c2_manifest_vendor_audio.xml": "298cda5023fc89537f0535743badd03f96cf7e3685465cf549ab052372e66421",
+    "dataconnection-saidl.xml": "54f33f6f4b3fa21bb9bd30c4187e10ef39f0cbae7e1816745c5806f45ecd4327",
+    "manifest_android.hardware.drm@1.4-service.clearkey.xml": "0ef073491b14699e5317caa201856b7d2d51dcc6edf8da358e01356cd5e6b557",
+    "manifest_com.fingerprints.fpc.extension@1.0-service.xml": "0cc022b036d3233f10d8142cc27405b028542f6eefaca4a5795cbd30ea5d8488",
+    "manifest_non_qmaa.xml": "9b32ece75b2c5f013f11e7a86c5ce7afa374e9427a7b1c098d0fdad558134aef",
+    "manifest_non_qmaa_extn.xml": "28823ce9ca9c9e0bffd3ed6e03a1c48afc469399cb5c5bea83d30705190cce81",
+    "power.xml": "541769636e0fe848700a472da66eddaffdfd00de06aab236827edbb334ca8bc3",
+    "qtiradio-saidl.xml": "35badf325cd57478f59fe8f8a72f55822b5a696b7b7c720b50f36c053445bcc3",
+    "vendor.qti.diag.hal.service.xml": "e83f49d490b33fe0a47114f5b9fcf651f5b7844a1aa2ea6b26e47cda59fbd85c",
+    "vendor.qti.gnss-service.xml": "862225184783e34b52f8c2c32afa19012bf69b7533a39cca060badd5abb461a6",
+    "vendor.qti.hardware.display.allocator-service.xml": "9ceb167d036b34b4f69ec5975c35b7447955d8277cfab2f459abc631ea9615b4",
+    "vendor.qti.hardware.display.composer-service.xml": "5b37e9ea2d2d2bf291f32cfdcae167d7878b9d7fe3575f3810874b63530dfbf7",
+    "vendor.qti.hardware.display.demura-service.xml": "42250fdda8cd23a4763b95ee8f354c1b8a8707902d6c228058908590bffedd8f",
+    "vendor.qti.hardware.lights.service.xml": "1cc7b95ba74be790902e3a7191988462fcb386415438f15005eb168e764fd605",
+    "vendor.qti.hardware.limits-service.xml": "5d9af3ac5160f6d692aac89864c8a71fa6f532424dd1a05e84ea4d6c699f152d",
+    "vendor.qti.hardware.perf.xml": "334f35898177c8c9d59d057593f76cb2b4cc89abaace73786ccc27b70bd22559",
+    "vendor.qti.hardware.power.powermodule.xml": "ca5f06b599daaa1de32a786b5576ac3b68c49023e96fe3e86995b6320a3e8050",
+    "vendor.qti.hardware.radio.ims.xml": "b69595a1e69515dafcc3417bc84535647bd765e4bf588c45cb9488c5225531d4",
+    "vendor.qti.hardware.radio.qtiradioconfig.xml": "af8748fd50f719c9d22e0223e0f898d1c8b78f0b859b8b17b01e2fa1c56a4246",
+    "vendor.qti.hardware.servicetracker@1.2-service.xml": "f57b12f5747dc5ba00186e1254dabebd071561c72ce3ae866cf8f9ce0ef901e0",
+    "vendor.qti.hardware.vibrator.service.xml": "ba06b2192b9c2b28a7f12e1caf41ba48beb6be2e5e6c8edfbe54101351ec4e86",
+    "vendor.qti.memory.pasrmanager@1.0-service.xml": "417e8b42f9d20d9b286ad7affbeca917f556657d40fc681142d5152cab1dc7bf",
+    "wigighalsvc.xml": "cf19a9af30cf2e47228db3951717383270fd2b1b84ca94d0d3f2c8f92d10a8e7"
+  }
+}

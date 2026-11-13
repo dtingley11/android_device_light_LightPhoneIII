@@ -1,0 +1,11 @@
+// SPDX-License-Identifier: Apache-2.0
+android_app {
+    name: "LP3Parts",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    platform_apis: true,
+    certificate: "platform",
+    system_ext_specific: true,
+    privileged: true,
+    optimize: { enabled: false },
+}
