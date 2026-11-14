@@ -1,0 +1,12 @@
+[
+  {
+    "project": "frameworks/native",
+    "patch": "0001-libgui-5.10-epoll-fallback.patch",
+    "base_commit": "9568531f9be7ae65f260699811f32ec4e461de6e"
+  },
+  {
+    "project": "system/core",
+    "patch": "0002-init-refresh-adbd-mount-namespace.patch",
+    "base_commit": "eb2de7321317226bbc1951382b3171fa59bb4d1d"
+  }
+]

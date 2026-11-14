@@ -116,7 +116,7 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 GENERIC_KERNEL_CMDLINE += androidboot.apex.early_adbd=true androidboot.init_fatal_panic=true
 ifeq ($(LP3_PREAUTHORIZE_ADB),true)
 # Recovery has no product mount from which to load the normal /adb_keys link.
-BOARD_RECOVERY_IMAGE_PREPARE = python3 ../tools/install_recovery_adb_keys.py $(TARGET_RECOVERY_ROOT_OUT)/lp3_adb_keys $(TARGET_RECOVERY_ROOT_OUT)/adb_keys
+BOARD_RECOVERY_IMAGE_PREPARE = python3 $(DEVICE_PATH)/tools/install_recovery_adb_keys.py $(TARGET_RECOVERY_ROOT_OUT)/lp3_adb_keys $(TARGET_RECOVERY_ROOT_OUT)/adb_keys
 endif
 endif
 

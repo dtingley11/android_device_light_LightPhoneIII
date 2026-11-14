@@ -35,6 +35,7 @@ public final class ControlsActivity extends PreferenceActivity {
     protected void onResume() {
         super.onResume();
         setupRefreshRate();
+        DisplayComposition.applySavedRate(this);
     }
 
     private void setupRefreshRate() {
@@ -84,20 +85,26 @@ public final class ControlsActivity extends PreferenceActivity {
             int selected = options.indexOf((String) value);
             if (selected < 0) return false;
             float cap = options.rateAt(selected);
+            if (DisplayComposition.needsGpu(cap) && !DisplayComposition.setForceGpu(true)) {
+                showRefreshRateError();
+                return false;
+            }
             float oldMinimum = Settings.System.getFloat(getContentResolver(),
                     Settings.System.MIN_REFRESH_RATE, 0);
-            boolean lowerMinimum = oldMinimum > cap;
-            if (lowerMinimum && !Settings.System.putFloat(getContentResolver(),
+            if (!Settings.System.putFloat(getContentResolver(),
                     Settings.System.MIN_REFRESH_RATE, cap)) {
+                DisplayComposition.applySavedRate(this);
                 showRefreshRateError();
                 return false;
             }
             if (!Settings.System.putFloat(getContentResolver(), Settings.System.PEAK_REFRESH_RATE, cap)) {
-                if (lowerMinimum) Settings.System.putFloat(getContentResolver(),
+                Settings.System.putFloat(getContentResolver(),
                         Settings.System.MIN_REFRESH_RATE, oldMinimum);
+                DisplayComposition.applySavedRate(this);
                 showRefreshRateError();
                 return false;
             }
+            DisplayComposition.applySavedRate(this);
             preference.setValue(options.valueAt(selected));
             refreshRateSummary(preference, options.size());
             return true;

@@ -3,9 +3,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lightphone.parts">
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.HARDWARE_TEST" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application android:label="@string/controls_title"
         android:theme="@android:style/Theme.DeviceDefault.DayNight"
         android:allowBackup="false" android:directBootAware="true">
+        <receiver android:name=".DisplayBootReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
         <activity android:name=".ControlsActivity" android:exported="true">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />

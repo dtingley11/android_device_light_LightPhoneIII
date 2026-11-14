@@ -1,0 +1,15 @@
+--- a/init/service.cpp
++++ b/init/service.cpp
+@@ -663,8 +663,10 @@
+         scon = *result;
+     }
+ 
+-    if (!mount_namespace_.has_value()) {
+-        // remember from which mount namespace the service should start
++    // Early ADB starts before APEX activation. A later restart must inherit
++    // the activated APEX namespace so Java shell tools can load their libraries.
++    if (!mount_namespace_.has_value() ||
++        (name_ == "adbd" && IsDefaultMountNamespaceReady())) {
+         SetMountNamespace();
+     }
+ 

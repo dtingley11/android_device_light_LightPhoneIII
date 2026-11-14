@@ -1,0 +1,60 @@
+--- a/libs/gui/BLASTBufferQueue.cpp
++++ b/libs/gui/BLASTBufferQueue.cpp
+@@ -39,6 +39,7 @@
+ #include <utils/Singleton.h>
+ #include <utils/Trace.h>
+ 
++#include <private/gui/CompatEpoll.h>
+ #include <private/gui/ComposerService.h>
+ #include <private/gui/ComposerServiceAIDL.h>
+ 
+@@ -1467,8 +1468,8 @@
+     epoll_event event{};
+     int eventCount;
+     do {
+-        eventCount = epoll_pwait2(mEpollFd.get(), &event, 1 /*maxevents*/,
+-                                  timespec ? &(*timespec) : nullptr, nullptr /*sigmask*/);
++        eventCount = gui::epollWaitWithFallback(mEpollFd.get(), &event, 1 /*maxevents*/,
++                                                timespec ? &(*timespec) : nullptr);
+     } while (eventCount == -1 && errno == EINTR);
+ 
+     if (eventCount == -1) {
+--- /dev/null
++++ b/libs/gui/include/private/gui/CompatEpoll.h
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++
++#include <errno.h>
++#include <limits.h>
++#include <stdint.h>
++#include <sys/epoll.h>
++
++namespace android::gui {
++
++// Stock 5.10 kernels may not implement epoll_pwait2. Preserve the precise
++// timeout where supported, falling back only when the syscall is unavailable.
++inline int epollWaitWithFallback(int fd, epoll_event* events, int maxEvents,
++                                 const timespec* timeout) {
++    int result = epoll_pwait2(fd, events, maxEvents, timeout, nullptr);
++    if (result != -1 || errno != ENOSYS) return result;
++
++    int timeoutMs = -1;
++    if (timeout) {
++        if (timeout->tv_sec < 0 || timeout->tv_nsec < 0 || timeout->tv_nsec >= 1000000000) {
++            errno = EINVAL;
++            return -1;
++        }
++        if (timeout->tv_sec > INT_MAX / 1000) {
++            timeoutMs = INT_MAX;
++        } else {
++            // Round up so a positive submillisecond wait cannot become a busy poll.
++            int64_t ms = int64_t(timeout->tv_sec) * 1000 +
++                    (timeout->tv_nsec + 999999) / 1000000;
++            timeoutMs = ms > INT_MAX ? INT_MAX : static_cast<int>(ms);
++        }
++    }
++    return epoll_wait(fd, events, maxEvents, timeoutMs);
++}
++
++} // namespace android::gui
