@@ -68,6 +68,7 @@ physical panel and wheel, requires the phone.
 ```sh
 export OUT_DIR=out-lp3-emulator
 source build/envsetup.sh
+python3 device/light/LightPhoneIII/tools/apply_source_patches.py
 lunch lineage_sdk_lp3_x86_64-bp4a-userdebug
 m -j8
 emulator -no-snapshot -skin 1080x1240

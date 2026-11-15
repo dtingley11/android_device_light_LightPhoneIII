@@ -8,5 +8,20 @@
     "project": "system/core",
     "patch": "0002-init-refresh-adbd-mount-namespace.patch",
     "base_commit": "eb2de7321317226bbc1951382b3171fa59bb4d1d"
+  },
+  {
+    "project": "packages/apps/Launcher3",
+    "patch": "0003-launcher-configurable-default-grid.patch",
+    "base_commit": "35ec64cec8f03580ae3b1b634ba137aaac4680af"
+  },
+  {
+    "project": "packages/apps/SetupWizard",
+    "patch": "0004-setup-keep-navigation-footer-visible.patch",
+    "base_commit": "715b772f07c52ce0fdb83b9891765f3de992ffb5"
+  },
+  {
+    "project": "packages/apps/Launcher3",
+    "patch": "0005-launcher-scale-workspace-icons.patch",
+    "base_commit": "35ec64cec8f03580ae3b1b634ba137aaac4680af"
   }
 ]

@@ -1,0 +1,27 @@
+--- a/src/com/android/launcher3/InvariantDeviceProfile.java
++++ b/src/com/android/launcher3/InvariantDeviceProfile.java
+@@ -342,9 +342,14 @@
+ 
+     private void initGrid(String gridName) {
+         Info displayInfo = mDisplayController.getInfo();
++        String preferredGrid = gridName;
++        if (preferredGrid == null) {
++            String defaultGrid = displayInfo.context.getString(R.string.config_defaultWorkspaceGrid);
++            preferredGrid = defaultGrid.isEmpty() ? null : defaultGrid;
++        }
+         List<DisplayOption> allOptions = getPredefinedDeviceProfiles(
+                 displayInfo,
+-                gridName,
++                preferredGrid,
+                 (RestoreDbTask.isPending(mPrefs) && !Flags.oneGridSpecs()),
+                 mPrefs.get(FIXED_LANDSCAPE_MODE)
+         );
+--- a/res/values/lineage_config.xml
++++ b/res/values/lineage_config.xml
+@@ -22,4 +22,6 @@
+ 
+     <!-- Allow rotation by default -->
+     <bool name="config_allowRotation">false</bool>
++    <!-- Grid used on first launch when no grid preference has been saved. -->
++    <string name="config_defaultWorkspaceGrid" translatable="false"></string>
+ </resources>

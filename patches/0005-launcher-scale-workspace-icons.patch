@@ -1,0 +1,15 @@
+diff --git a/src/com/android/launcher3/deviceprofile/WorkspaceProfileNonResponsiveFactory.kt b/src/com/android/launcher3/deviceprofile/WorkspaceProfileNonResponsiveFactory.kt
+index 1f312c3..c850784 100644
+--- a/src/com/android/launcher3/deviceprofile/WorkspaceProfileNonResponsiveFactory.kt
++++ b/src/com/android/launcher3/deviceprofile/WorkspaceProfileNonResponsiveFactory.kt
+@@ -573,8 +573,8 @@ object WorkspaceProfileNonResponsiveFactory {
+                         deviceProperties = deviceProperties,
+                         cellScaleToFit = cellScaleToFit,
+                         iconScale = iconScale,
+-                        iconSizePx = iconSizePx,
+-                        iconTextSizePx = iconTextSizePx,
++                        iconSizePx = max(1, Math.round(iconSizePx * iconScale)),
++                        iconTextSizePx = (iconTextSizePx * iconScale).toInt(),
+                         isVerticalLayout = isVerticalLayout,
+                         iconDrawablePaddingOriginalPx = iconDrawablePaddingOriginalPx,
+                         inv = inv,

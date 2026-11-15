@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <dimen name="keyguard_security_view_bottom_margin">8dp</dimen>
+    <dimen name="keyguard_pin_field_height">32dp</dimen>
+    <dimen name="keyguard_password_height">32dp</dimen>
+    <dimen name="num_pad_entry_row_margin_bottom">4dp</dimen>
+    <dimen name="keyguard_eca_top_margin">6dp</dimen>
+    <dimen name="keyguard_eca_bottom_margin">4dp</dimen>
+</resources>

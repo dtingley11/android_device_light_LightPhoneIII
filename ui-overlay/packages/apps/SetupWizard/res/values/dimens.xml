@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <dimen name="welcome_title_text_size">32sp</dimen>
+    <dimen name="welcome_title_line_height">38sp</dimen>
+    <dimen name="welcome_title_padding_bottom">8dp</dimen>
+    <dimen name="welcome_content_container_padding_bottom">8dp</dimen>
+    <dimen name="welcome_content_container_padding_start">24dp</dimen>
+    <dimen name="welcome_content_container_padding_end">24dp</dimen>
+    <dimen name="welcome_accessibility_text_size">16sp</dimen>
+    <dimen name="content_margin_top">12dp</dimen>
+    <dimen name="sud_glif_icon_margin_top">12dp</dimen>
+    <dimen name="sud_glif_header_title_margin_top">8dp</dimen>
+    <dimen name="sud_glif_header_title_margin_bottom">0dp</dimen>
+    <dimen name="sud_content_glif_margin_top">12dp</dimen>
+    <dimen name="sud_content_frame_padding_bottom">8dp</dimen>
+    <dimen name="sud_glif_icon_margin_top_material_you">12dp</dimen>
+    <dimen name="sud_glif_icon_max_height_material_you">32dp</dimen>
+    <dimen name="sud_glif_header_title_size_material_you">28sp</dimen>
+    <dimen name="sud_glif_header_title_margin_top_material_you">12dp</dimen>
+    <dimen name="sud_header_container_margin_bottom_material_you">12dp</dimen>
+    <dimen name="sud_glif_description_margin_top_material_you">8dp</dimen>
+    <dimen name="sud_glif_description_text_size_material_you">16sp</dimen>
+    <!-- SetupCompat partner defaults are applied after the initial GLIF theme. -->
+    <dimen name="setup_design_icon_size">24dp</dimen>
+    <dimen name="setup_design_icon_margin_top">8dp</dimen>
+    <dimen name="setup_design_header_text_size">26sp</dimen>
+    <dimen name="setup_design_header_text_margin_top">8dp</dimen>
+    <dimen name="setup_design_header_text_margin_bottom">4dp</dimen>
+    <dimen name="setup_design_header_container_margin_bottom">8dp</dimen>
+    <dimen name="setup_design_header_auto_size_max_text_size">26sp</dimen>
+    <dimen name="setup_design_header_auto_size_min_text_size">24sp</dimen>
+    <dimen name="setup_design_header_auto_size_line_spacing_extra">0sp</dimen>
+    <dimen name="setup_design_description_text_size">16sp</dimen>
+    <dimen name="setup_design_description_text_margin_top">8dp</dimen>
+    <dimen name="setup_design_content_text_size">16sp</dimen>
+    <dimen name="setup_design_content_padding_top">4dp</dimen>
+    <dimen name="setup_design_layout_margin_start">24dp</dimen>
+    <dimen name="setup_design_layout_margin_end">24dp</dimen>
+    <dimen name="setup_design_items_min_height">56dp</dimen>
+    <dimen name="setup_design_items_padding_top">12dp</dimen>
+    <dimen name="setup_design_items_padding_bottom">12dp</dimen>
+    <dimen name="setup_design_items_title_text_size">18sp</dimen>
+    <dimen name="setup_compat_footer_button_min_height">48dp</dimen>
+    <dimen name="sud_check_box_margin_top">8dp</dimen>
+    <dimen name="sud_check_box_margin_bottom">8dp</dimen>
+    <dimen name="sud_check_box_line_spacing_extra">2sp</dimen>
+</resources>

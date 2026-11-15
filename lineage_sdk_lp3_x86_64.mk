@@ -4,6 +4,7 @@ $(call inherit-product, vendor/lineage/build/target/product/lineage_sdk_phone_x8
 
 PRODUCT_SOONG_NAMESPACES += device/light/LightPhoneIII
 PRODUCT_PACKAGES += LP3Parts
+$(call inherit-product, device/light/LightPhoneIII/ui.mk)
 
 PRODUCT_NAME := lineage_sdk_lp3_x86_64
 PRODUCT_MODEL := LP3 development emulator

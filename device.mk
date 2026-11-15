@@ -35,6 +35,7 @@ PRODUCT_PACKAGES += update_engine update_verifier fastbootd
 PRODUCT_CHARACTERISTICS := nosdcard
 
 $(call inherit-product, $(DEVICE_PATH)/bluetooth.mk)
+$(call inherit-product, $(DEVICE_PATH)/ui.mk)
 
 $(call inherit-product, vendor/light/LightPhoneIII/LightPhoneIII-vendor.mk)
 $(call inherit-product, vendor/light/LightPhoneIII/telephony/telephony-vendor.mk)

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <dimen name="keyguard_lock_padding">6dp</dimen>
+    <dimen name="secondary_message_padding">2dp</dimen>
+</resources>

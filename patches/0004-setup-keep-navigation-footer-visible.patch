@@ -1,0 +1,61 @@
+--- a/src/org/lineageos/setupwizard/NavigationLayout.java
++++ b/src/org/lineageos/setupwizard/NavigationLayout.java
+@@ -9,6 +9,8 @@
+ import android.content.res.TypedArray;
+ import android.util.AttributeSet;
+ import android.view.View;
++import android.view.ViewGroup;
++import android.view.ViewStub;
+ import android.widget.Button;
+ import android.widget.RelativeLayout;
+ 
+@@ -51,6 +53,29 @@
+         }
+     }
+ 
++    @Override
++    protected void onAttachedToWindow() {
++        super.onAttachedToWindow();
++        if (getResources().getBoolean(R.bool.config_pinNavigationFooter)) {
++            post(this::pinToFooter);
++        }
++    }
++
++    private void pinToFooter() {
++        if (!isAttachedToWindow()) return;
++        View footer = getRootView().findViewById(
++                com.google.android.setupcompat.R.id.suc_layout_footer);
++        if (!(footer instanceof ViewStub) || !(getParent() instanceof ViewGroup)) return;
++
++        // Keep the existing controls and listeners outside GLIF's scrolling content.
++        ViewStub stub = (ViewStub) footer;
++        stub.setLayoutResource(R.layout.setup_navigation_footer);
++        ViewGroup container = (ViewGroup) stub.inflate();
++        ((ViewGroup) getParent()).removeView(this);
++        container.addView(this, new ViewGroup.LayoutParams(
++                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
++    }
++
+     public Button getSkipButton() {
+         return mSkipButton;
+     }
+--- a/res/values/config.xml
++++ b/res/values/config.xml
+@@ -10,4 +10,5 @@
+     <string name="wizard_script_uri" translatable="false">android.resource://org.lineageos.setupwizard/raw/wizard_script</string>
+     <string name="wizard_script_user_uri" translatable="false">android.resource://org.lineageos.setupwizard/raw/wizard_script_user</string>
+     <bool name="config_isLargeNoTouch">false</bool>
++    <bool name="config_pinNavigationFooter">false</bool>
+ </resources>
+--- /dev/null
++++ b/res/layout/setup_navigation_footer.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- SPDX-License-Identifier: Apache-2.0 -->
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:paddingStart="24dp"
++    android:paddingEnd="24dp"
++    android:paddingTop="4dp"
++    android:paddingBottom="4dp" />
