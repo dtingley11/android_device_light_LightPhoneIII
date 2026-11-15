@@ -1,0 +1,67 @@
+diff --git a/src/com/android/alarmclock/DigitalAppWidgetProvider.java b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
+index 39d7075..1d3183f 100644
+--- a/src/com/android/alarmclock/DigitalAppWidgetProvider.java
++++ b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
+@@ -24,6 +24,7 @@ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
+ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
+ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
+ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH;
++import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_SIZES;
+ import static android.content.Intent.ACTION_CONFIGURATION_CHANGED;
+ import static android.content.Intent.ACTION_LOCALE_CHANGED;
+ import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
+@@ -52,6 +53,7 @@ import android.os.Bundle;
+ import android.text.TextUtils;
+ import android.text.format.DateFormat;
+ import android.util.ArraySet;
++import android.util.SizeF;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.widget.LinearLayout;
+@@ -73,8 +75,10 @@ import com.android.deskclock.worldclock.CitySelectionActivity;
+ 
+ import java.util.Calendar;
+ import java.util.Date;
++import java.util.LinkedHashMap;
+ import java.util.List;
+ import java.util.Locale;
++import java.util.Map;
+ import java.util.Set;
+ import java.util.TimeZone;
+ 
+@@ -208,9 +212,32 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+      */
+     private static void relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
+             Bundle options) {
+-        final RemoteViews portrait = relayoutWidget(context, wm, widgetId, options, true);
+-        final RemoteViews landscape = relayoutWidget(context, wm, widgetId, options, false);
+-        final RemoteViews widget = new RemoteViews(landscape, portrait);
++        final List<SizeF> widgetSizes = options == null ? null
++                : options.getParcelableArrayList(OPTION_APPWIDGET_SIZES, SizeF.class);
++        final Map<SizeF, RemoteViews> viewsBySize = new LinkedHashMap<>();
++        if (widgetSizes != null && widgetSizes.size() <= 16) {
++            for (SizeF size : widgetSizes) {
++                if (size == null || !Float.isFinite(size.getWidth())
++                        || !Float.isFinite(size.getHeight())
++                        || size.getWidth() <= 0 || size.getHeight() <= 0) {
++                    continue;
++                }
++                // Width and height extrema may belong to different orientations.
++                // Size each layout against an actual pair supplied by the host.
++                final Bundle bounds = new Bundle(options);
++                bounds.putInt(OPTION_APPWIDGET_MIN_WIDTH, (int) size.getWidth());
++                bounds.putInt(OPTION_APPWIDGET_MAX_HEIGHT, (int) size.getHeight());
++                viewsBySize.put(size, relayoutWidget(context, wm, widgetId, bounds, true));
++            }
++        }
++        final RemoteViews widget;
++        if (viewsBySize.isEmpty()) {
++            final RemoteViews portrait = relayoutWidget(context, wm, widgetId, options, true);
++            final RemoteViews landscape = relayoutWidget(context, wm, widgetId, options, false);
++            widget = new RemoteViews(landscape, portrait);
++        } else {
++            widget = new RemoteViews(viewsBySize);
++        }
+         wm.updateAppWidget(widgetId, widget);
+         wm.notifyAppWidgetViewDataChanged(widgetId, R.id.world_city_list);
+     }

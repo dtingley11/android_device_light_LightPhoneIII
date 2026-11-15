@@ -23,5 +23,10 @@
     "project": "packages/apps/Launcher3",
     "patch": "0005-launcher-scale-workspace-icons.patch",
     "base_commit": "35ec64cec8f03580ae3b1b634ba137aaac4680af"
+  },
+  {
+    "project": "packages/apps/DeskClock",
+    "patch": "0006-deskclock-use-widget-size-options.patch",
+    "base_commit": "2490477be83e91cd59e46293538d0270ffac6ab2"
   }
 ]
