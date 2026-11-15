@@ -18,3 +18,6 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     bluetooth.profile.sap.server.enabled=true
+
+# The stock Qualcomm DSP offload path is incompatible with this Bluetooth stack.
+PRODUCT_PRODUCT_PROPERTIES += ro.bluetooth.a2dp_offload.supported=false

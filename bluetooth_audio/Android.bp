@@ -1,0 +1,71 @@
+// HIDL 2.0 software audio HAL, based on AOSP android-11.0.0_r48.
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+cc_library_shared {
+    name: "audio.bluetooth_lp3.default",
+    relative_install_path: "hw",
+    stl: "none",
+    cpp_std: "c++17",
+    include_dirs: [
+        "prebuilts/vndk/v32/arm64/include/external/libcxx/include",
+        "prebuilts/vndk/v32/arm64/include/system/libbase/include",
+        "prebuilts/vndk/v32/arm64/include/generated-headers/bionic/libc/libc/android_vendor.32_arm64_armv8-a_shared/gen/include",
+        "prebuilts/vndk/v32/arm64/include/system/libfmq/include",
+        "prebuilts/vndk/v32/arm64/include/system/libfmq/base",
+    ],
+    proprietary: true,
+    compile_multilib: "64",
+    srcs: [
+        "audio_bluetooth_hw.cc",
+        "stream_apis.cc",
+        "device_port_proxy.cc",
+        "utils.cc",
+    ],
+    header_libs: ["libhardware_headers"],
+    shared_libs: [
+        "android.hardware.bluetooth.audio@2.0",
+        "libaudioutils",
+        "libbase_lp3_vndk32",
+        "libcxx_lp3_vndk32",
+        "libbluetooth_audio_session",
+        "libcutils",
+        "libfmq",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter",
+    ],
+}
+
+// These libraries are already supplied by the stock VNDK 32 APEX.
+cc_prebuilt_library_shared {
+    name: "libcxx_lp3_vndk32",
+    stem: "libc++",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: ["//prebuilts/vndk/v32/arm64:lp3_vndk32_libcxx"],
+    stl: "none",
+    system_shared_libs: [],
+    check_elf_files: false,
+    installable: false,
+    strip: { none: true },
+}
+
+cc_prebuilt_library_shared {
+    name: "libbase_lp3_vndk32",
+    stem: "libbase",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: ["//prebuilts/vndk/v32/arm64:lp3_vndk32_libbase"],
+    stl: "none",
+    system_shared_libs: [],
+    check_elf_files: false,
+    installable: false,
+    strip: { none: true },
+}

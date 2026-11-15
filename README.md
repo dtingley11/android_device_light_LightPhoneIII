@@ -45,18 +45,15 @@ python3 "$lp3_device/tools/prepare_firmware.py" --images "$lp3_firmware" \
   --boot "$lp3_firmware/boot_b.img" \
   --vendor-boot "$lp3_firmware/vendor_boot_b.img" \
   --dtbo "$lp3_firmware/dtbo_b.img"
-python3 "$lp3_device/tools/prepare_runtime_vendor.py"
 python3 "$lp3_device/tools/prepare_telephony.py" --images "$lp3_firmware"
-python3 "$lp3_device/tools/apply_source_patches.py"
-
-lunch lineage_LightPhoneIII-bp4a-userdebug
-m -j8 otapackage
+bash "$lp3_device/tools/build.sh"
 ```
 
 The OTA is written to
 `out-lp3-phone/target/product/LightPhoneIII/lineage_LightPhoneIII-ota.zip`.
-Firmware preparation is required once per fresh checkout; subsequent builds
-need only the same `OUT_DIR`, `source`, phone `lunch`, and `m` commands.
+Firmware preparation is required once per fresh checkout. For subsequent
+builds, set the same `OUT_DIR` and run
+`bash device/light/LightPhoneIII/tools/build.sh` from the source directory.
 Development builds use test keys and retain ADB authentication.
 
 ## Emulator

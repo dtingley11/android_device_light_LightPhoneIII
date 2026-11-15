@@ -1,0 +1,21 @@
+diff --git a/arm64/Android.bp b/arm64/Android.bp
+index 78b864a..15116cf 100644
+--- a/arm64/Android.bp
++++ b/arm64/Android.bp
+@@ -5821,3 +5821,16 @@ vndk_prebuilt_shared {
+         },
+     },
+ }
++
++// Link-only inputs for the LP3's vendor-32 Bluetooth audio module.
++filegroup {
++    name: "lp3_vndk32_libcxx",
++    srcs: ["arch-arm64-armv8-a/shared/vndk-sp/libc++.so"],
++    visibility: ["//device/light/LightPhoneIII:__subpackages__"],
++}
++
++filegroup {
++    name: "lp3_vndk32_libbase",
++    srcs: ["arch-arm64-armv8-a/shared/vndk-sp/libbase.so"],
++    visibility: ["//device/light/LightPhoneIII:__subpackages__"],
++}
