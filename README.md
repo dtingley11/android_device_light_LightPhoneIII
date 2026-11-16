@@ -78,5 +78,4 @@ The archive is written to
 
 ## Credits
 
-Auto-brightness configuration adapted from [yarosz/lp3-treble](https://github.com/yarosz/lp3-treble).
-That project also identified the camera-button settings issue.
+Auto-brightness configuration and camera-button settings issue fix adapted from [yarosz/lp3-treble](https://github.com/yarosz/lp3-treble).
