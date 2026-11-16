@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <bool name="config_useCompactCameraLayout">true</bool>
+    <dimen name="camera_mode_selector_vertical_padding">4dp</dimen>
+</resources>

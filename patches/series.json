@@ -43,5 +43,10 @@
     "project": "frameworks/base",
     "patch": "0009-systemui-configurable-slider-haptics.patch",
     "base_commit": "4617d71eb23447fb325178ac34a0fd7daa1b0597"
+  },
+  {
+    "project": "packages/apps/Aperture",
+    "patch": "0010-aperture-compact-camera-layout.patch",
+    "base_commit": "1efc4e6086a23be0cc57e7d922d38a72c4a4afed"
   }
 ]

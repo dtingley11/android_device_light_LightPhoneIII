@@ -1,0 +1,182 @@
+diff --git a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
+index 9d51ad1..736702c 100644
+--- a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
++++ b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
+@@ -13,6 +13,7 @@ import android.content.pm.ActivityInfo
+ import android.graphics.BitmapFactory
+ import android.graphics.Color
+ import android.graphics.Rect
++import android.graphics.RectF
+ import android.graphics.drawable.AnimatedVectorDrawable
+ import android.graphics.drawable.ColorDrawable
+ import android.icu.text.DecimalFormat
+@@ -55,6 +56,7 @@ import androidx.camera.view.ScreenFlashView
+ import androidx.camera.viewfinder.core.ZoomGestureDetector
+ import androidx.cardview.widget.CardView
+ import androidx.constraintlayout.widget.ConstraintLayout
++import androidx.constraintlayout.widget.ConstraintSet
+ import androidx.core.content.ContextCompat
+ import androidx.core.view.ViewCompat
+ import androidx.core.view.WindowCompat
+@@ -366,6 +368,11 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+ 
++        val useCompactLayout = resources.getBoolean(R.bool.config_useCompactCameraLayout)
++        if (useCompactLayout) {
++            configureCompactLayout()
++        }
++
+         // Enable edge-to-edge
+         enableEdgeToEdge()
+ 
+@@ -414,8 +421,17 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+         ViewCompat.setOnApplyWindowInsetsListener(mainLayout) { _, windowInsets ->
+             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+ 
++            if (useCompactLayout) {
++                findViewById<ConstraintLayout>(R.id.primaryBarLayout)
++                    .updateLayoutParams<ViewGroup.MarginLayoutParams> {
++                        bottomMargin = insets.bottom
++                        leftMargin = insets.left
++                        rightMargin = insets.right
++                    }
++            }
++
+             cameraModeSelectorLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+-                bottomMargin = insets.bottom
++                bottomMargin = if (useCompactLayout) 0 else insets.bottom
+                 leftMargin = insets.left
+                 rightMargin = insets.right
+             }
+@@ -474,6 +490,10 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+         viewFinder.previewStreamState.observe(this) {
+             when (it) {
+                 PreviewView.StreamState.STREAMING -> {
++                    if (useCompactLayout) {
++                        fillCompactPreview()
++                    }
++
+                     // Show grid
+                     gridView.alpha = 1f
+                     gridView.previewView = viewFinder
+@@ -1107,9 +1127,9 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+                 when (tapToFocusInfoState.focusState) {
+                     CameraController.TAP_TO_FOCUS_STARTED -> {
+                         viewFinderFocus.x =
+-                            tapToFocusInfoState.tapPoint!!.x - (viewFinderFocus.width / 2)
++                            viewFinder.x + tapToFocusInfoState.tapPoint!!.x - (viewFinderFocus.width / 2)
+                         viewFinderFocus.y =
+-                            tapToFocusInfoState.tapPoint!!.y - (viewFinderFocus.height / 2)
++                            viewFinder.y + tapToFocusInfoState.tapPoint!!.y - (viewFinderFocus.height / 2)
+                         viewFinderFocus.isVisible = true
+                         handler.removeMessages(MSG_HIDE_FOCUS_RING)
+                         ValueAnimator.ofInt(0.px, 8.px).apply {
+@@ -1874,6 +1894,78 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+         finish()
+     }
+ 
++    private fun configureCompactLayout() {
++        val primaryBar = findViewById<ConstraintLayout>(R.id.primaryBarLayout)
++        primaryBar.setPadding(0, 0, 0, 0)
++        primaryBar.setBackgroundColor(0x66000000)
++        cameraModeSelectorLayout.setBackgroundColor(0x66000000)
++        findViewById<ConstraintLayout>(R.id.secondaryBottomBarLayout).setBackgroundColor(0x66000000)
++        shutterButton.scaleType = ImageView.ScaleType.FIT_CENTER
++        shutterButton.setPadding(4.px)
++        flipCameraButton.scaleType = ImageView.ScaleType.FIT_CENTER
++        flipCameraButton.setPadding(6.px)
++        videoRecordingStateButton.scaleType = ImageView.ScaleType.FIT_CENTER
++        videoRecordingStateButton.setPadding(8.px)
++
++        ConstraintSet().apply {
++            clone(mainLayout)
++            constrainHeight(R.id.primaryBarLayout, 64.px)
++            clear(R.id.primaryBarLayout, ConstraintSet.BOTTOM)
++            connect(R.id.primaryBarLayout, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
++            clear(R.id.cameraModeSelectorLayout, ConstraintSet.BOTTOM)
++            connect(R.id.cameraModeSelectorLayout, ConstraintSet.BOTTOM, R.id.primaryBarLayout, ConstraintSet.TOP)
++            clear(R.id.viewFinder, ConstraintSet.BOTTOM)
++            connect(R.id.viewFinder, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
++            constrainHeight(R.id.secondaryBottomBarLayout, 48.px)
++            clear(R.id.secondaryBottomBarLayout, ConstraintSet.BOTTOM)
++            connect(R.id.secondaryBottomBarLayout, ConstraintSet.BOTTOM, R.id.cameraModeSelectorLayout, ConstraintSet.TOP)
++            clear(R.id.zoomLevel, ConstraintSet.BOTTOM)
++            connect(R.id.zoomLevel, ConstraintSet.BOTTOM, R.id.secondaryBottomBarLayout, ConstraintSet.TOP, 8.px)
++            clear(R.id.islandView, ConstraintSet.TOP)
++            connect(R.id.islandView, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 12.px)
++            applyTo(mainLayout)
++        }
++
++        ConstraintSet().apply {
++            clone(primaryBar)
++            for (id in intArrayOf(
++                R.id.shutterButton, R.id.galleryButtonCardView, R.id.flipCameraButton,
++                R.id.videoRecordingStateButton
++            )) {
++                val size = if (id == R.id.shutterButton) 56.px else 48.px
++                constrainWidth(id, size)
++                constrainHeight(id, size)
++            }
++            applyTo(primaryBar)
++        }
++
++        mainLayout.addOnLayoutChangeListener { _, left, top, right, bottom,
++                                               oldLeft, oldTop, oldRight, oldBottom ->
++            if (right - left != oldRight - oldLeft || bottom - top != oldBottom - oldTop) {
++                viewFinder.post { fillCompactPreview() }
++            }
++        }
++    }
++
++    private fun fillCompactPreview() {
++        val transform = viewFinder.outputTransform ?: return
++        if (mainLayout.width <= 0 || mainLayout.height <= 0) return
++
++        val imageBounds = RectF(-1f, -1f, 1f, 1f)
++        transform.matrix.mapRect(imageBounds)
++        val aspectRatio = imageBounds.width() / imageBounds.height()
++        if (!aspectRatio.isFinite() || aspectRatio <= 0f) return
++
++        // Fill the display by clipping the view, preserving CameraX's FIT capture viewport.
++        val width = maxOf(mainLayout.width, kotlin.math.ceil(mainLayout.height * aspectRatio).toInt())
++        val height = maxOf(mainLayout.height, kotlin.math.ceil(mainLayout.width / aspectRatio).toInt())
++        if (viewFinder.layoutParams.width == width && viewFinder.layoutParams.height == height) return
++        viewFinder.updateLayoutParams<ConstraintLayout.LayoutParams> {
++            this.width = width
++            this.height = height
++        }
++    }
++
+     private fun openSettings() {
+         val intent = Intent(this, SettingsActivity::class.java)
+         startActivity(intent)
+diff --git a/app/src/main/res/layout/camera_mode_selector_layout.xml b/app/src/main/res/layout/camera_mode_selector_layout.xml
+index 03f1e30..34f5aa1 100644
+--- a/app/src/main/res/layout/camera_mode_selector_layout.xml
++++ b/app/src/main/res/layout/camera_mode_selector_layout.xml
+@@ -8,7 +8,8 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:padding="16dp">
++    android:paddingHorizontal="16dp"
++    android:paddingVertical="@dimen/camera_mode_selector_vertical_padding">
+ 
+     <com.google.android.material.button.MaterialButton
+         android:id="@+id/cameraModeHighlightButton"
+diff --git a/app/src/main/res/values/config.xml b/app/src/main/res/values/config.xml
+index 72cd4c7..6d1b58f 100644
+--- a/app/src/main/res/values/config.xml
++++ b/app/src/main/res/values/config.xml
+@@ -4,6 +4,10 @@
+      SPDX-License-Identifier: Apache-2.0
+ -->
+ <resources>
++    <!-- Use compact camera controls on small displays. -->
++    <bool name="config_useCompactCameraLayout">false</bool>
++    <dimen name="camera_mode_selector_vertical_padding">16dp</dimen>
++
+     <!-- Enable auxiliary cameras selector. -->
+     <bool name="config_enableAuxCameras">false</bool>
+ 
