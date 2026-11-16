@@ -79,3 +79,5 @@ The archive is written to
 ## Credits
 
 Auto-brightness configuration and camera-button settings issue fix adapted from [yarosz/lp3-treble](https://github.com/yarosz/lp3-treble).
+
+Bootloader unlock method by [vandamd/light-guide](https://github.com/vandamd/light-guide).
