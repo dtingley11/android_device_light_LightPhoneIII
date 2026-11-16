@@ -66,14 +66,17 @@ physical panel and wheel, requires the phone.
 export OUT_DIR=out-lp3-emulator
 source build/envsetup.sh
 python3 device/light/LightPhoneIII/tools/apply_source_patches.py
+git -C external/chromium-webview/prebuilt/x86_64 lfs install --local
+git -C external/chromium-webview/prebuilt/x86_64 lfs pull --include=webview.apk --exclude=
 lunch lineage_sdk_lp3_x86_64-bp4a-userdebug
 m -j8
+m -j8 emu_img_zip
 emulator -no-snapshot -skin 1080x1240
 ```
 
-Enable hardware virtualization and KVM access on the host. To export the image
-for Android Studio, run `m -j8 emu_img_zip` in the same configured terminal.
-The archive is written to
+Enable hardware virtualization and KVM access on the host. If graphics
+initialization fails, add `-gpu swiftshader_indirect` to the emulator command.
+The Android Studio image archive is written to
 `out-lp3-emulator/target/product/emu64x/sdk-repo-linux-system-images.zip`.
 
 ## Credits
