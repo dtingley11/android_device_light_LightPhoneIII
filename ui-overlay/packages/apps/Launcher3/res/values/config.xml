@@ -3,6 +3,6 @@
 <resources>
     <string name="config_defaultWorkspaceGrid" translatable="false">5_by_5</string>
     <style name="CellStyleDefault">
-        <item name="iconDrawablePadding">2dp</item>
+        <item name="*com.android.launcher3:iconDrawablePadding">2dp</item>
     </style>
 </resources>
