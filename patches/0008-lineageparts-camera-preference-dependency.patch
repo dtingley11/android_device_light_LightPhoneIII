@@ -1,0 +1,34 @@
+diff --git a/src/org/lineageos/lineageparts/input/ButtonSettings.java b/src/org/lineageos/lineageparts/input/ButtonSettings.java
+index e14655c..67be806 100644
+--- a/src/org/lineageos/lineageparts/input/ButtonSettings.java
++++ b/src/org/lineageos/lineageparts/input/ButtonSettings.java
+@@ -365,11 +365,13 @@ public class ButtonSettings extends SettingsPreferenceFragment
+ 
+             if (!showCameraWake) {
+                 cameraCategory.removePreference(mCameraWakeScreen);
++                mCameraWakeScreen = null;
+             }
+-            // Only show 'Camera sleep on release' if the device has a focus key
+-            if (res.getBoolean(
++            // Sleeping on release requires both a focus key and camera wake support.
++            if (!showCameraWake || res.getBoolean(
+                     org.lineageos.platform.internal.R.bool.config_singleStageCameraKey)) {
+                 cameraCategory.removePreference(mCameraSleepOnRelease);
++                mCameraSleepOnRelease = null;
+             }
+         }
+         if (!hasCameraKey || cameraCategory.getPreferenceCount() == 0) {
+@@ -415,11 +417,8 @@ public class ButtonSettings extends SettingsPreferenceFragment
+             prefScreen.removePreference(backlight);
+         }
+ 
+-        if (mCameraWakeScreen != null) {
+-            if (mCameraSleepOnRelease != null && !res.getBoolean(
+-                    org.lineageos.platform.internal.R.bool.config_singleStageCameraKey)) {
+-                mCameraSleepOnRelease.setDependency(KEY_CAMERA_WAKE_SCREEN);
+-            }
++        if (mCameraWakeScreen != null && mCameraSleepOnRelease != null) {
++            mCameraSleepOnRelease.setDependency(KEY_CAMERA_WAKE_SCREEN);
+         }
+ 
+         SwitchPreferenceCompat volumeWakeScreen = findPreference(KEY_VOLUME_WAKE_SCREEN);

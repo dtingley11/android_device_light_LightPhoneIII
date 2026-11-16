@@ -33,5 +33,10 @@
     "project": "prebuilts/vndk/v32",
     "patch": "0007-vndk32-bluetooth-link-inputs.patch",
     "base_commit": "e1ba8043f8368220b412c18ee8392850ab009aae"
+  },
+  {
+    "project": "packages/apps/LineageParts",
+    "patch": "0008-lineageparts-camera-preference-dependency.patch",
+    "base_commit": "fb2783be5b217ce8786a26f0a34d6b7fc9768348"
   }
 ]
