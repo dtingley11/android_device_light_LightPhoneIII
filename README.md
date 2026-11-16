@@ -75,3 +75,8 @@ Enable hardware virtualization and KVM access on the host. To export the image
 for Android Studio, run `m -j8 emu_img_zip` in the same configured terminal.
 The archive is written to
 `out-lp3-emulator/target/product/emu64x/sdk-repo-linux-system-images.zip`.
+
+## Credits
+
+Auto-brightness configuration adapted from [yarosz/lp3-treble](https://github.com/yarosz/lp3-treble).
+That project also identified the camera-button settings issue.
