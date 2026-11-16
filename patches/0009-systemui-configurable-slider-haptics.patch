@@ -1,0 +1,157 @@
+diff --git a/packages/SystemUI/src/com/android/systemui/brightness/ui/compose/BrightnessSlider.kt b/packages/SystemUI/src/com/android/systemui/brightness/ui/compose/BrightnessSlider.kt
+index 9ee47cf16..2fdebcf42 100644
+--- a/packages/SystemUI/src/com/android/systemui/brightness/ui/compose/BrightnessSlider.kt
++++ b/packages/SystemUI/src/com/android/systemui/brightness/ui/compose/BrightnessSlider.kt
+@@ -83,6 +83,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
+ import androidx.compose.ui.graphics.painter.ColorPainter
+ import androidx.compose.ui.graphics.painter.Painter
+ import androidx.compose.ui.input.pointer.pointerInteropFilter
++import androidx.compose.ui.res.booleanResource
+ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.platform.LocalView
+ import androidx.compose.ui.res.colorResource
+@@ -158,6 +159,7 @@ fun BrightnessSlider(
+     val enabled = !isRestricted
+     val contentDescription = stringResource(R.string.accessibility_brightness)
+     val interactionSource = remember { MutableInteractionSource() }
++    val sliderHapticsEnabled = booleanResource(R.bool.config_enableSliderHaptics)
+     val hapticsViewModel: SliderHapticsViewModel =
+         rememberViewModel(traceName = "SliderHapticsViewModel") {
+             hapticsViewModelFactory.create(
+@@ -165,6 +167,7 @@ fun BrightnessSlider(
+                 floatValueRange,
+                 Orientation.Horizontal,
+                 SliderHapticFeedbackConfig(
++                    enabled = sliderHapticsEnabled,
+                     maxVelocityToScale = 1f /* slider progress(from 0 to 1) per sec */
+                 ),
+                 SeekableSliderTrackerConfig(),
+diff --git a/packages/SystemUI/src/com/android/systemui/haptics/slider/HapticSliderPlugin.kt b/packages/SystemUI/src/com/android/systemui/haptics/slider/HapticSliderPlugin.kt
+index 16c53b17d..2b2ead45d 100644
+--- a/packages/SystemUI/src/com/android/systemui/haptics/slider/HapticSliderPlugin.kt
++++ b/packages/SystemUI/src/com/android/systemui/haptics/slider/HapticSliderPlugin.kt
+@@ -20,6 +20,7 @@ import android.view.MotionEvent
+ import android.view.VelocityTracker
+ import androidx.annotation.VisibleForTesting
+ import com.android.app.tracing.coroutines.launchTraced as launch
++import com.android.systemui.res.R
+ import com.android.systemui.statusbar.VibratorHelper
+ import com.android.systemui.util.time.SystemClock
+ import com.google.android.msdl.domain.MSDLPlayer
+@@ -67,7 +68,12 @@ constructor(
+             vibratorHelper,
+             msdlPlayer,
+             dragVelocityProvider,
+-            sliderHapticFeedbackConfig,
++            sliderHapticFeedbackConfig.copy(
++                enabled = sliderHapticFeedbackConfig.enabled && when (slider) {
++                    is HapticSlider.SeekBar -> slider.seekBar.resources
++                    is HapticSlider.Slider -> slider.slider.resources
++                }.getBoolean(R.bool.config_enableSliderHaptics)
++            ),
+             systemClock,
+         )
+ 
+diff --git a/packages/SystemUI/src/com/android/systemui/haptics/slider/SliderHapticFeedbackConfig.kt b/packages/SystemUI/src/com/android/systemui/haptics/slider/SliderHapticFeedbackConfig.kt
+index 7b97bbc0f..4db774713 100644
+--- a/packages/SystemUI/src/com/android/systemui/haptics/slider/SliderHapticFeedbackConfig.kt
++++ b/packages/SystemUI/src/com/android/systemui/haptics/slider/SliderHapticFeedbackConfig.kt
+@@ -51,4 +51,6 @@ data class SliderHapticFeedbackConfig(
+     @FloatRange(from = 0.0) val sliderStepSize: Float = 0f,
+     /** A filter that determines values for which haptics are triggered */
+     val filter: SliderHapticFeedbackFilter = SliderHapticFeedbackFilter(),
++    /** Enables vibration feedback from slider interactions. */
++    val enabled: Boolean = true,
+ )
+diff --git a/packages/SystemUI/src/com/android/systemui/haptics/slider/SliderHapticFeedbackProvider.kt b/packages/SystemUI/src/com/android/systemui/haptics/slider/SliderHapticFeedbackProvider.kt
+index 82c284a57..3ac11e2e8 100644
+--- a/packages/SystemUI/src/com/android/systemui/haptics/slider/SliderHapticFeedbackProvider.kt
++++ b/packages/SystemUI/src/com/android/systemui/haptics/slider/SliderHapticFeedbackProvider.kt
+@@ -72,6 +72,7 @@ class SliderHapticFeedbackProvider(
+      * @param[absoluteVelocity] Velocity of the handle when it reached the bookend.
+      */
+     private fun vibrateOnEdgeCollision(absoluteVelocity: Float) {
++        if (!config.enabled) return
+         val powerScale = scaleOnEdgeCollision(absoluteVelocity)
+         if (Flags.msdlFeedback()) {
+             val properties =
+@@ -151,6 +152,7 @@ class SliderHapticFeedbackProvider(
+     }
+ 
+     private fun performDiscreteSliderDragVibration(scale: Float) {
++        if (!config.enabled) return
+         if (Flags.msdlFeedback()) {
+             val properties =
+                 InteractionProperties.DynamicVibrationScale(scale, VIBRATION_ATTRIBUTES_PIPELINING)
+@@ -165,6 +167,7 @@ class SliderHapticFeedbackProvider(
+     }
+ 
+     private fun performContinuousSliderDragVibration(scale: Float) {
++        if (!config.enabled) return
+         if (Flags.msdlFeedback()) {
+             val properties =
+                 InteractionProperties.DynamicVibrationScale(scale, VIBRATION_ATTRIBUTES_PIPELINING)
+diff --git a/packages/SystemUI/src/com/android/systemui/volume/VolumeDialogImpl.java b/packages/SystemUI/src/com/android/systemui/volume/VolumeDialogImpl.java
+index 8bc023e24..d0bfb16be 100644
+--- a/packages/SystemUI/src/com/android/systemui/volume/VolumeDialogImpl.java
++++ b/packages/SystemUI/src/com/android/systemui/volume/VolumeDialogImpl.java
+@@ -2701,7 +2701,8 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
+                 /* lowerBookendScale= */ 0.05f,
+                 /* exponent= */ 1f / 0.89f,
+                 /* sliderStepSize = */ 0f,
+-                /* filter =*/new SliderHapticFeedbackFilter());
++                /* filter =*/new SliderHapticFeedbackFilter(),
++                /* enabled= */ true);
+         private static final SeekableSliderTrackerConfig sSliderTrackerConfig =
+                 new SeekableSliderTrackerConfig(
+                         /* waitTimeMillis= */100,
+diff --git a/packages/SystemUI/src/com/android/systemui/volume/ui/compose/slider/Slider.kt b/packages/SystemUI/src/com/android/systemui/volume/ui/compose/slider/Slider.kt
+index 3073c3829..4d6d86932 100644
+--- a/packages/SystemUI/src/com/android/systemui/volume/ui/compose/slider/Slider.kt
++++ b/packages/SystemUI/src/com/android/systemui/volume/ui/compose/slider/Slider.kt
+@@ -46,6 +46,7 @@ import androidx.compose.runtime.remember
+ import androidx.compose.runtime.rememberCoroutineScope
+ import androidx.compose.runtime.setValue
+ import androidx.compose.ui.Modifier
++import androidx.compose.ui.res.booleanResource
+ import androidx.compose.ui.semantics.ProgressBarRangeInfo
+ import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+ import androidx.compose.ui.semantics.clearAndSetSemantics
+@@ -57,6 +58,7 @@ import androidx.compose.ui.semantics.stateDescription
+ import com.android.app.tracing.coroutines.launchTraced
+ import com.android.systemui.haptics.slider.compose.ui.SliderHapticsViewModel
+ import com.android.systemui.lifecycle.rememberViewModel
++import com.android.systemui.res.R
+ import com.android.systemui.volume.haptics.ui.VolumeHapticsConfigs
+ import kotlin.math.round
+ import kotlin.time.Duration
+@@ -273,13 +275,16 @@ private fun Haptics.rememberViewModel(
+     return when (this) {
+         is Haptics.Disabled -> null
+         is Haptics.Enabled -> {
++            val sliderHapticsEnabled = booleanResource(R.bool.config_enableSliderHaptics)
+             hapticsViewModelFactory.let {
+                 rememberViewModel(traceName = "SliderHapticsViewModel") {
+                         it.create(
+                             interactionSource,
+                             valueRange,
+                             orientation,
+-                            hapticConfigs.hapticFeedbackConfig,
++                            hapticConfigs.hapticFeedbackConfig.copy(
++                                enabled = hapticConfigs.hapticFeedbackConfig.enabled && sliderHapticsEnabled
++                            ),
+                             hapticConfigs.sliderTrackerConfig,
+                         )
+                     }
+diff --git a/packages/SystemUI/res/values/config_haptics.xml b/packages/SystemUI/res/values/config_haptics.xml
+new file mode 100644
+--- /dev/null
++++ b/packages/SystemUI/res/values/config_haptics.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2026 The Android Open Source Project
++     SPDX-License-Identifier: Apache-2.0 -->
++<resources>
++    <!-- Enables feedback while dragging sliders and reaching their endpoints. -->
++    <bool name="config_enableSliderHaptics">true</bool>
++</resources>
