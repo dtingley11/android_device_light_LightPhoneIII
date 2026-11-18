@@ -50,6 +50,10 @@ PRODUCT_PACKAGES_DEBUG += lp3-recovery-adb-keys
 endif
 endif
 
+# Hardware power estimates must be compiled into framework resources.
+DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/power-overlay
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(DEVICE_PATH)/power-overlay
+
 # LP3 physical controls: encoder scrolling, configurable wheel actions and Home.
 DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
 PRODUCT_PACKAGES += LP3Parts

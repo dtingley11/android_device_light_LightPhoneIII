@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Power estimates from LP3 firmware 00WW_1_440000. CPU entries follow cpufreq order. -->
+<device name="LightPhoneIII">
+    <item name="none">0</item>
+    <item name="screen.on.display0">90</item>
+    <item name="screen.full.display0">225</item>
+    <item name="bluetooth.controller.idle">4</item>
+    <item name="bluetooth.controller.rx">75</item>
+    <item name="bluetooth.controller.tx">115</item>
+    <item name="bluetooth.controller.voltage">3870</item>
+    <item name="wifi.on">2</item>
+    <item name="wifi.active">45</item>
+    <item name="wifi.scan">85</item>
+    <item name="wifi.controller.idle">4</item>
+    <item name="wifi.controller.rx">465</item>
+    <item name="wifi.controller.tx">415</item>
+    <item name="wifi.controller.voltage">3870</item>
+    <item name="audio">25</item>
+    <item name="video">40</item>
+    <item name="camera.flashlight">90</item>
+    <item name="camera.avg">335</item>
+    <item name="radio.active">90</item>
+    <item name="radio.scanning">120</item>
+    <item name="gps.on">200</item>
+    <array name="radio.on">
+        <value>6</value>
+    </array>
+    <array name="cpu.clusters.cores">
+        <value>6</value>
+        <value>2</value>
+    </array>
+    <array name="cpu.core_speeds.cluster0">
+        <value>499200</value>
+        <value>672000</value>
+        <value>806400</value>
+        <value>921600</value>
+        <value>1094400</value>
+        <value>1286400</value>
+        <value>1478400</value>
+        <value>1632000</value>
+        <value>1804800</value>
+        <value>1958400</value>
+    </array>
+    <array name="cpu.core_power.cluster0">
+        <value>48</value>
+        <value>68</value>
+        <value>74</value>
+        <value>94</value>
+        <value>106</value>
+        <value>114</value>
+        <value>140</value>
+        <value>158</value>
+        <value>167</value>
+        <value>181</value>
+    </array>
+    <array name="cpu.core_speeds.cluster1">
+        <value>691200</value>
+        <value>960000</value>
+        <value>1190400</value>
+        <value>1344000</value>
+        <value>1497600</value>
+        <value>1651200</value>
+        <value>1900800</value>
+        <value>2054400</value>
+        <value>2131200</value>
+        <value>2208000</value>
+    </array>
+    <array name="cpu.core_power.cluster1">
+        <value>66</value>
+        <value>90</value>
+        <value>108</value>
+        <value>126</value>
+        <value>138</value>
+        <value>157</value>
+        <value>176</value>
+        <value>192</value>
+        <value>203</value>
+        <value>226</value>
+    </array>
+    <item name="cpu.suspend">4</item>
+    <item name="cpu.idle">30</item>
+    <array name="memory.bandwidths">
+        <value>50</value>
+    </array>
+    <item name="battery.capacity">1800</item>
+    <array name="wifi.batchedscan">
+        <value>80</value>
+        <value>80</value>
+        <value>80</value>
+        <value>80</value>
+        <value>80</value>
+    </array>
+</device>
